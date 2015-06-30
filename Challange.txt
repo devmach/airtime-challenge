@@ -1,0 +1,29 @@
+Welcome to our Challenge!
+
+You are an intelligence officer and your mission, should you choose to accept it, is to make sense of a transmission that we captured on our spy satellites. In order to download the transmission dump, you must connect to the TCP server at challenge2.airtime.com:2323
+
+In order to authenticate with the server, the client must perform a handshake:
+
+Upon connection, the server will send you a handshake packet: "WHORU:<challenge number>\n" without quotes, encoded in UTF-8.
+You must then send an identification packet: "IAM:<challenge number>:<user email address>:at\n" without quotes, encoded in UTF-8.
+If the identification was successful, the server will respond with a success packet containing your identification code. "SUCCESS:<identification code>\n" without quotes, encoded in UTF-8.
+Once the server sends the success packet, it will begin sending the entire satellite dump over the socket.
+
+In order to help understand the transmission, we have stolen an excerpt of a secret document that may help.
+    2.1 
+
+       Each packet has the following structure: 
+         0   4   8   12 
+         +---+---+---+=============================+ 
+         |SEQ|CHK|LEN|…LEN bytes of raw Linear PCM | 
+         +---+---+---+=============================+ 
+ 
+      CHK (Checksum) 
+         The 32-bit checksum is calculated by XOR'ing each 32-bit chunk of 
+         the 4 byte big-endian sequence number(SEQ) and data.  If LEN is 
+         not a multiple of 4, the byte 0xAB shall be used in place of the 
+         missing bytes only for the purpose of calculating the checksum. 
+ 
+Hint: Next steps will become apparent once you are able to understand the transmission.
+
+Hint: Some interesting websites that may be useful for your mission are FFmpeg and Audacity
